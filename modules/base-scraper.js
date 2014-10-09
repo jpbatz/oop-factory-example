@@ -1,42 +1,30 @@
 var http = require('http');
 
-// var BaseScraper = {};
+// CONSTRUCTOR
 function BaseScraper() {
   console.log('base constructor');
 }
 
+// GETTER METHOD
 Object.defineProperty(BaseScraper, "url", {
   get : function(){
     return this._url;
   }
 });
 
-BaseScraper.prototype = {
-  constructor: BaseScraper,
-  request: function(){
-    var options = {
-      hostname: this.url,
-      port: 80,
-      path: '/',
-      method: 'GET'
-    };
-    this.response();
-    // var req = http.request(options, this.response);
+// ADD METHODS TO CLASS
 
-    // req.on('error', function(e) {
-    //   console.log('problem with request: ' + e.message);
-    // });
-  },
-  response: function(data){
-    console.log('i am base class'); 
-    // console.log(data);
-    // console.log('STATUS: ' + res.statusCode);
-    // console.log('HEADERS: ' + JSON.stringify(res.headers));
-    // res.setEncoding('utf8');
-    // res.on('data', function (chunk) {
-    //   console.log('BODY: ' + chunk);
-    // });
-  }
+BaseScraper.prototype.request = function(){
+  var options = {
+    hostname: this.url,
+    port: 80,
+    path: '/',
+    method: 'GET'
+  };
+  this.response();
+};
+BaseScraper.prototype.response = function(data){
+  console.log('i am base class'); 
 };
 
 module.exports = BaseScraper;
