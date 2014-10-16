@@ -19,11 +19,15 @@ function Spell(name, cost, description) {
 -   * The format doesnt matter, as long as it contains the spell name, cost, and description.
 -   * @name printDetails
 -   */
-  this.printDetails = function() {
-    console.log(this.name + " " + this.cost + " " + this.description); // faster
-    // console.log("%s %d %s", this.name, this.cost, this.description);  // c-style, does not work here
-  };
+  // this.printDetails = function() {
+  //   console.log(this.name + " " + this.cost + " " + this.description); // faster
+  //   // console.log("%s %d %s", this.name, this.cost, this.description);  // c-style, does not work here
+  // };
 }
+
+Spell.prototype.printDetails = function() {
+  console.log(this.name + " " + this.cost + " " + this.description);
+};
 /**
 - * A spell that deals damage.
 - * We want to keep this code DRY (Don't Repeat Yourself).
@@ -49,12 +53,19 @@ function Spell(name, cost, description) {
 - * @property {string} description
 - */
 
-DamageSpell.prototype = new Spell();
+// DamageSpell.prototype = new Spell();
 
 function DamageSpell(name, cost, damage, description) {
-  Spell.call(this, name, cost,description);   // like super()
+  Spell.call(this, name, cost, description);   // like super()
   this.damage = damage;
 }
+
+DamageSpell.prototype = Object.create(Spell, {
+  constructor: {
+    value: Spell
+  }
+});
+
 /**
 - * Now that you've created some spells, let's create
 - * `Spellcaster` objects that can use them!
